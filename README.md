@@ -1,234 +1,116 @@
-\# Codex Hub Portable
-
-
+# Codex Hub Portable
 
 A lightweight portable environment initializer for Codex Hub with isolated OpenAI Codex and DeepSeek interfaces.
 
+## Overview
 
+Codex Hub Portable is designed to simplify the deployment and initialization of Codex Hub environments.
 
-\## Overview
-
-
-
-Codex Hub Portable is designed to simplify the deployment of Codex Hub environments.
-
-
-
-The project does not provide built-in AI accounts or API keys.
-
-
+This project does not provide built-in AI accounts, API keys, or user credentials.
 
 Users only need to:
 
+- Install the official OpenAI Codex CLI
+- Login with their own OpenAI account
+- Configure DeepSeek API Key if required
 
+The initialization scripts handle environment preparation and interface configuration.
 
-\- Install the official OpenAI Codex CLI
+## Features
 
-\- Login with their own OpenAI account
+- One-click environment initialization
+- Independent OpenAI Codex interface
+- Independent DeepSeek API interface
+- Portable deployment
+- User-side account and API configuration
+- No dependency on virtual machine environments
 
-\- Configure DeepSeek API Key if required
+## Installation
 
+### Requirements
 
+Before installation, make sure you have:
 
-The initialization script handles environment preparation and interface configuration.
-
-
-
-\---
-
-
-
-\## Features
-
-
-
-\- One-click environment initialization
-
-\- Independent OpenAI Codex interface
-
-\- Independent DeepSeek API interface
-
-\- Portable deployment
-
-\- User-side account configuration
-
-\- No dependency on virtual machines
-
-
-
-\---
-
-
-
-\## Installation
-
-
-
-\### 1. Requirements
-
-
-
-Before installation:
-
-
-
-\- Windows operating system
-
-\- Official OpenAI Codex CLI installed
-
-\- OpenAI account logged in
-
-
+- Windows operating system
+- Official OpenAI Codex CLI installed
+- OpenAI account authentication completed
 
 Optional:
 
+- DeepSeek API Key
 
+### Setup
 
-\- DeepSeek API Key
+1. Download the latest release:
 
+https://github.com/YaoQianjun-code/Codex-Hub-Portable/releases
 
+2. Extract the package.
 
-\---
+3. Run:
 
+```cmd
+Start-Setup.cmd
+```
 
+4. Follow the instructions to complete initialization.
 
-\### 2. Setup
+The script will automatically prepare the required environment.
 
+## Interfaces
 
+Codex Hub Portable provides independent interface configurations.
 
-Download the latest release.
+### OpenAI Codex
 
+Uses the official OpenAI Codex CLI environment.
 
+Users authenticate through their own OpenAI account.
 
-Extract the package.
-
-
-
-Run:Start-Setup.cmd
-
-
-
-The script will automatically initialize the required environment.
-
-
-
-\---
-
-
-
-\## Interface
-
-
-
-Codex Hub Portable provides:
-
-
-
-\### OpenAI Codex
-
-
-
-Uses the official Codex CLI environment.
-
-
-
-Users authenticate with their own OpenAI account.
-
-
-
-\### DeepSeek
-
-
+### DeepSeek
 
 Supports independent DeepSeek API configuration.
 
+Users provide their own DeepSeek API Key.
 
+## Project Structure
 
-Users provide their own API Key.
-
-
-
-\---
-
-
-
-\## Project Structure
-
+```text
 Codex Hub Portable
-
 │
-
 ├── Codex Hub
-
 │   └── codex-hub.exe
-
 │
-
 ├── tools
-
 │   └── Setup scripts
-
 │
-
 ├── Start-Setup.cmd
-
 │
-
 ├── VERSION.txt
-
 │
-
 └── README.md
+```
 
-
-
-\---
-
-
-
-\## Notes
-
-
+## Notes
 
 This project does not include:
 
+- OpenAI accounts
+- API keys
+- User credentials
 
+All AI services must be configured by users themselves.
 
-\- OpenAI accounts
+The project only provides environment initialization and interface preparation.
 
-\- API keys
+## Version
 
-\- User credentials
+Current version:
 
+```text
+v4.2.0
+```
 
-
-All services are configured by users themselves.
-
-
-
-\---
-
-
-
-\## Version
-
-
-
-Current version:v4.2.0
-
-
-
-\---
-
-
-
-\## License
-
-
+## License
 
 For personal and educational use.
-
-
-
-
-
