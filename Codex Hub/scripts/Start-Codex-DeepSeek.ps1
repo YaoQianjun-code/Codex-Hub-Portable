@@ -1,39 +1,27 @@
-﻿param([switch]$CheckOnly)
+﻿param([switch]$CheckOnly, [string]$ProfileRoot = $env:USERPROFILE)
 $ErrorActionPreference = 'Stop'
-$taskPreviousHome = $env:CODEX_HOME
+$tools = Join-Path (Split-Path (Split-Path $PSScriptRoot -Parent) -Parent) 'tools'
+. (Join-Path $tools 'Hub.Common.ps1')
+$previous = $env:CODEX_HOME
 try {
-    $taskHome = Join-Path $env:USERPROFILE '.codex-deepseek'
-    if (-not (Test-Path -LiteralPath (Join-Path $taskHome 'config.toml'))) {
-        throw "Existing configuration not found: $taskHome"
+    $paths = Get-HubPaths $ProfileRoot
+    if (-not (Test-Path -LiteralPath $paths.Settings) -or -not (Test-Path -LiteralPath $paths.Config)) {
+        if ($CheckOnly) { throw 'DS 尚未配置，请运行 Configure-DeepSeek.cmd。' }
+        & (Join-Path $tools 'Configure-DeepSeek.ps1') -ProfileRoot $ProfileRoot
     }
-    $env:CODEX_HOME = $taskHome
+    [void](Read-HubSettings $paths)
+    [void](Read-HubKey $paths)
+    $env:CODEX_HOME = $paths.DeepSeek
     $Host.UI.RawUI.WindowTitle = 'Codex DeepSeek'
-    Write-Host 'Codex DeepSeek' -ForegroundColor Green
-    Write-Host "CODEX_HOME = $env:CODEX_HOME"
-    $taskCommand = Get-Command codex.exe -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
-    $taskExe = if ($taskCommand) { $taskCommand.Source } else { $null }
-    if (-not $taskExe) {
-        $taskBin = Join-Path $env:LOCALAPPDATA 'OpenAI\Codex\bin'
-        $taskCandidate = Get-ChildItem -LiteralPath $taskBin -Filter codex.exe -Recurse -ErrorAction SilentlyContinue |
-            Sort-Object LastWriteTime -Descending | Select-Object -First 1
-        if ($taskCandidate) { $taskExe = $taskCandidate.FullName }
-    }
-    if (-not $taskExe) { throw 'Codex CLI was not found. Install or repair Codex, then retry.' }
-    if ($CheckOnly) {
-        Write-Host "Executable = $taskExe"
-        & $taskExe --version
-        if ($LASTEXITCODE -ne 0) { throw "Codex version check failed: $LASTEXITCODE" }
-        return
-    }
-    & $taskExe
+    Write-Host ('Codex DeepSeek | CODEX_HOME = ' + $env:CODEX_HOME) -ForegroundColor Green
+    $exe = Find-HubCodex
+    if ($CheckOnly) { & $exe --version }
+    else { & $exe }
     if ($LASTEXITCODE -ne 0) { throw "Codex exited with code $LASTEXITCODE" }
 }
 catch {
     Write-Host $_.Exception.Message -ForegroundColor Red
-    if (-not $CheckOnly) { [void](Read-Host 'Press Enter to close') }
+    if (-not $CheckOnly) { [void](Read-Host '按回车关闭') }
     throw
 }
-finally {
-    if ($null -eq $taskPreviousHome) { Remove-Item Env:CODEX_HOME -ErrorAction SilentlyContinue }
-    else { $env:CODEX_HOME = $taskPreviousHome }
-}
+finally { $env:CODEX_HOME = $previous }

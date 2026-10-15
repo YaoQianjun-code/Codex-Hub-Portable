@@ -1,0 +1,24 @@
+# Codex user profiles / credentials
+.codex/
+.codex-deepseek/
+
+# Credentials
+*.env
+*.key
+credential.env
+auth.json
+api-key.txt
+api_key.txt
+
+# WebView2 runtime data
+*.WebView2/
+EBWebView/
+Crashpad/
+
+# Logs / temp files
+*.log
+*.tmp
+
+# Windows
+Thumbs.db
+Desktop.ini

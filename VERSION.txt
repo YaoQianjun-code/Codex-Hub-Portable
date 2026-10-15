@@ -1,1 +1,4 @@
-Codex Hub Portable v4.2 Release Final
+﻿Codex Hub Portable v4.3 DS Setup Update
+Installer / launcher scripts: v4.3
+codex-hub.exe: original v4.2 executable, unchanged
+Validated CLI target: codex-cli 0.155.1
